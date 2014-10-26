@@ -39,12 +39,21 @@ namespace Microsoft.Samples.Kinect.DepthBasics
         /// </summary>
         private byte[] colorPixels;
 
+        private GameWindow gameWindow;
+
+        private bool isBasicView = true;
+
+        private DateTime viewChangedTime;
+
+        private const int DETECT_DEPTH = 850;
+
         /// <summary>
         /// Initializes a new instance of the MainWindow class.
         /// </summary>
         public MainWindow()
         {
             InitializeComponent();
+            viewChangedTime = DateTime.Now;
         }
 
         /// <summary>
@@ -179,6 +188,33 @@ namespace Microsoft.Samples.Kinect.DepthBasics
 
 					lblDepth.Content = "val: " + index + "\tx-coord: " + index % 640 + "\ty-coord: " + index / 640 + "\tdepth: " + iDepth;
 
+                    if (isBasicView)
+                    {
+                        if (iDepth <= DETECT_DEPTH)
+                        {
+                            if (index % 640 < 240)
+                            {
+                                gameWindow.showMonkey();
+                            }
+                            else
+                            {
+                                gameWindow.showCrocodile();
+                            }
+                            isBasicView = false;
+                            viewChangedTime = DateTime.Now;
+                        }
+                    }
+                    else
+                    {
+                        TimeSpan timeDiff = DateTime.Now - viewChangedTime;
+                        if (timeDiff.TotalSeconds > 9)
+                        {
+                            gameWindow.showBasic();
+                            isBasicView = true;
+                        }
+
+                    }
+
 					for (int i = index % 640 - 20; i < index % 640 + 20; ++i)
 					{
 						for (int j = index / 640 - 20; j < index / 640 + 20; ++j) {
@@ -267,6 +303,12 @@ namespace Microsoft.Samples.Kinect.DepthBasics
                 {
                 }
             }
+        }
+
+        public GameWindow GameWindow
+        {
+            get { return this.gameWindow; }
+            set { this.gameWindow = value; }
         }
     }
 }

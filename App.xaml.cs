@@ -13,5 +13,16 @@ namespace Microsoft.Samples.Kinect.DepthBasics
     /// </summary>
     public partial class App : Application
     {
+        void App_Startup(object sender, StartupEventArgs e)
+        {
+            GameWindow gameWindow = new GameWindow();
+
+            MainWindow mainWindow = new MainWindow();
+            mainWindow.GameWindow = gameWindow;
+
+            mainWindow.Show();
+            gameWindow.Show();
+
+        }
     }
 }
