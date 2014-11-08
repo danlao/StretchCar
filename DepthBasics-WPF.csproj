@@ -61,11 +61,17 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AnimalButton.cs" />
+    <Compile Include="Animation.cs" />
+    <Compile Include="Horn.cs" />
+    <Compile Include="SteeringWheel.cs" />
+    <Compile Include="Windshield.cs" />
+    <Compile Include="WindshieldWiper.cs" />
     <Page Include="GameWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="MainWindow.xaml">
+    <Page Include="StretchCar.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -73,11 +79,13 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Dashboard.cs" />
+    <Compile Include="DashboardItem.cs" />
     <Compile Include="GameWindow.xaml.cs">
       <DependentUpon>GameWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
+    <Compile Include="StretchCar.xaml.cs">
+      <DependentUpon>StretchCar.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
