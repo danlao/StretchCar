@@ -16,7 +16,7 @@ namespace Microsoft.Samples.Kinect.DepthBasics
 
         public override bool findPoint(int x, int y)
         {            
-            return false;
+            return true;
         }
 
     }

@@ -17,6 +17,7 @@ $RECYCLE.BIN/
 bin/
 obj/
 *.user
+*.suo
 
 # =========================
 # Operating System Files

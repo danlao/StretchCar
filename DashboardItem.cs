@@ -16,7 +16,7 @@ namespace Microsoft.Samples.Kinect.DepthBasics
             this.yCoord = y;
         }
 
-        public virtual bool findPoint(int x, int y);
+        public abstract bool findPoint(int x, int y);
 
     }
 }

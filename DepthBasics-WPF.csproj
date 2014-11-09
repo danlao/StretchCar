@@ -64,14 +64,15 @@
     <Compile Include="AnimalButton.cs" />
     <Compile Include="Animation.cs" />
     <Compile Include="Horn.cs" />
+    <Compile Include="JungleAnimation.cs" />
     <Compile Include="SteeringWheel.cs" />
-    <Compile Include="Windshield.cs" />
+    <Compile Include="StretchCar.cs" />
     <Compile Include="WindshieldWiper.cs" />
-    <Page Include="GameWindow.xaml">
+    <Page Include="Windshield.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="StretchCar.xaml">
+    <Page Include="Monitor.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -81,11 +82,11 @@
     </Compile>
     <Compile Include="Dashboard.cs" />
     <Compile Include="DashboardItem.cs" />
-    <Compile Include="GameWindow.xaml.cs">
-      <DependentUpon>GameWindow.xaml</DependentUpon>
+    <Compile Include="Windshield.xaml.cs">
+      <DependentUpon>Windshield.xaml</DependentUpon>
     </Compile>
-    <Compile Include="StretchCar.xaml.cs">
-      <DependentUpon>StretchCar.xaml</DependentUpon>
+    <Compile Include="Monitor.xaml.cs">
+      <DependentUpon>Monitor.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
@@ -107,6 +108,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="html\Jungle\Jungle.ai" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -114,6 +116,7 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="html\Jungle\Still.jpg" />
     <Resource Include="Images\Kinect.ico" />
     <Resource Include="Images\Logo.png" />
     <Resource Include="Images\Status.png" />
@@ -127,6 +130,18 @@
   <ItemGroup>
     <Content Include="html\basic.html" />
     <Content Include="html\crocodile.html" />
+    <Content Include="html\Jungle\crocodile.html" />
+    <Content Include="html\Jungle\Crocodile.swf" />
+    <Content Include="html\Jungle\driving.html" />
+    <Content Include="html\Jungle\Driving.swf" />
+    <Content Include="html\Jungle\giraffe.html" />
+    <Content Include="html\Jungle\Giraffe.swf" />
+    <Content Include="html\Jungle\Jungle_Song.mp3" />
+    <Content Include="html\Jungle\lion.html" />
+    <Content Include="html\Jungle\Lion.swf" />
+    <Content Include="html\Jungle\monkey.html" />
+    <Content Include="html\Jungle\Monkey.swf" />
+    <Content Include="html\Jungle\still.html" />
     <Content Include="html\Jungle_Crocodile.swf" />
     <Content Include="html\Jungle_Driving.swf" />
     <Content Include="html\monkey.html" />

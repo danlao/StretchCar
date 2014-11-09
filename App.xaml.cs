@@ -15,14 +15,8 @@ namespace Microsoft.Samples.Kinect.DepthBasics
     {
         void App_Startup(object sender, StartupEventArgs e)
         {
-            GameWindow gameWindow = new GameWindow();
 
-            MainWindow mainWindow = new MainWindow();
-            mainWindow.GameWindow = gameWindow;
-
-            mainWindow.Show();
-            gameWindow.Show();
-
+            StretchCar stretchCar = new StretchCar();
         }
     }
 }
