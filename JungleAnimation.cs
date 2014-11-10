@@ -34,12 +34,12 @@ namespace Microsoft.Samples.Kinect.DepthBasics
 
         public override void animalAppears(System.Windows.Controls.WebBrowser webBrowser)
         {
-
+			// TODO: implement when receive animation files
         }
 
         public override void animalLeaves(System.Windows.Controls.WebBrowser webBrowser)
         {
-
+			// TODO: implement when receive animation files
         }
 
     }

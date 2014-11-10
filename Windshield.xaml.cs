@@ -65,7 +65,7 @@ namespace Microsoft.Samples.Kinect.DepthBasics
 
         public void windshieldWiperPressed()
         {
-
+			// TODO: implement this
         }
 
         public void animalButtonPressed()

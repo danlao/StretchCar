@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Microsoft.Samples.Kinect.DepthBasics
 {
@@ -15,8 +12,19 @@ namespace Microsoft.Samples.Kinect.DepthBasics
         }
 
         public override bool findPoint(int x, int y)
-        {            
-            return true;
+        {
+            // 1. find the distance from x,y to xCoord,yCoord
+			// 2. Compare this distance to radius
+			//		if less than, return true
+
+			double distance = Math.Sqrt(Math.Pow(x - this.xCoord, 2) + Math.Pow(y - this.yCoord, 2));
+
+			if (distance <= (double)radius)
+			{
+				return true;
+			}
+
+			return false;
         }
 
     }

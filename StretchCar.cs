@@ -39,13 +39,12 @@ namespace Microsoft.Samples.Kinect.DepthBasics
 
         private Dashboard dashboard;
 
-        private const int DETECT_DEPTH = 850;
-
         public StretchCar()
         {
             gameWindow = new Windshield();
             dashboard = new Dashboard();
             dashboard.addItem(new SteeringWheel(100, 100, 50));
+			// TODO: add more dashboard items later
 
             this.setup();
 
@@ -190,7 +189,9 @@ namespace Microsoft.Samples.Kinect.DepthBasics
                         {
                             gameWindow.windshieldWiperPressed();
                         }
-                    }
+					}
+
+					// TODO: check windshield timer
 
                     this.monitor.paintBitmap(index, iDepth, this.colorPixels);
 
