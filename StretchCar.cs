@@ -44,6 +44,7 @@ namespace Microsoft.Samples.Kinect.DepthBasics
             gameWindow = new Windshield();
             dashboard = new Dashboard();
             dashboard.addItem(new SteeringWheel(100, 100, 50));
+			dashboard.addItem(new Horn(640, 0, 640, 100, 540, 0));
 			// TODO: add more dashboard items later
 
             this.setup();

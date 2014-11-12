@@ -1,37 +1,27 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Microsoft.Samples.Kinect.DepthBasics
 {
     class AnimalButton : DashboardItem
     {
-        private int secondX;
-        private int secondY;
+		private int radius;
 
-        public AnimalButton(int x, int y, int secondX, int secondY)
+        public AnimalButton(int x, int y, int radius)
             : base(x, y)
         {
-            this.secondX = secondX;
-            this.secondY = secondY;
+            this.radius = radius;
         }
 
         public override bool findPoint(int x, int y)
         {
-            int left = this.secondX > this.xCoord ? this.xCoord : this.secondX;
-            int right = this.secondX < this.xCoord ? this.xCoord : this.secondX;
-            if (x < left || x > right)
-            {
-                return false;
-            }
-            int top = this.secondY > this.yCoord ? this.yCoord : this.secondY;
-            int bottom = this.secondY < this.yCoord ? this.yCoord : this.secondY;
-            if (y < top || y > bottom)
-            {
-                return false;
-            }
-            return true;
+            double distance = Math.Sqrt(Math.Pow(x - this.xCoord, 2) + Math.Pow(y - this.yCoord, 2));
+
+			if (distance <= (double)this.radius)
+			{
+				return true;
+			}
+
+			return false;
         }
 
     }

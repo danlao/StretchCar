@@ -10,6 +10,7 @@ namespace Microsoft.Samples.Kinect.DepthBasics
         protected String rootPath;
         protected String movingScenePath;
         protected String stillScenePath;
+		protected String audioPath;
 
         public void generateRootPath()
         {
@@ -25,6 +26,7 @@ namespace Microsoft.Samples.Kinect.DepthBasics
             }
         }
 
+		public abstract String getAudioPath();
         public abstract void carMoves(System.Windows.Controls.WebBrowser webBrowser);
         public abstract void carStops(System.Windows.Controls.WebBrowser webBrowser);
         public abstract void animalAppears(System.Windows.Controls.WebBrowser webBrowser);

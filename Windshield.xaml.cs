@@ -43,6 +43,9 @@ namespace Microsoft.Samples.Kinect.DepthBasics
             this.sceneStatus = SceneStatus.Still;
             this.animation = new JungleAnimation();
             this.animation.carStops(this.GUI);
+
+			soundMediaElement.Source = new Uri(this.animation.getAudioPath());
+			soundMediaElement.Play();
         }
 
         public void steerPressed()
@@ -52,6 +55,8 @@ namespace Microsoft.Samples.Kinect.DepthBasics
                 this.animation.carMoves(this.GUI);
                 sceneStatus = SceneStatus.Moving;
             }
+
+			Console.WriteLine("steering wheel pressed");
         }
 
         public void hornPressed()
@@ -61,6 +66,8 @@ namespace Microsoft.Samples.Kinect.DepthBasics
                 this.animation.animalLeaves(this.GUI);
                 sceneStatus = SceneStatus.AnimalLeaving;
             }
+
+			Console.WriteLine("horn pressed");
         }
 
         public void windshieldWiperPressed()
@@ -80,6 +87,9 @@ namespace Microsoft.Samples.Kinect.DepthBasics
         public void switchEnvironment()
         {
             this.animation = (Animation)this.animations[(this.animations.IndexOf(this.animation) + 1) % this.animations.Count];
+			soundMediaElement.Close();
+			soundMediaElement.Source = new Uri(this.animation.getAudioPath());
+			soundMediaElement.Play();
         }
     }
 }

@@ -19,7 +19,7 @@ namespace Microsoft.Samples.Kinect.DepthBasics
 
 			double distance = Math.Sqrt(Math.Pow(x - this.xCoord, 2) + Math.Pow(y - this.yCoord, 2));
 
-			if (distance <= (double)radius)
+			if (distance <= (double)this.radius)
 			{
 				return true;
 			}

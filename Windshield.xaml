@@ -5,5 +5,18 @@
     
     <Grid>
         <WebBrowser Name="GUI"></WebBrowser>
+        <MediaElement Height="120" LoadedBehavior="Manual" Name="soundMediaElement">
+            <MediaElement.Triggers>
+                <EventTrigger RoutedEvent="MediaElement.Loaded">
+                    <EventTrigger.Actions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <MediaTimeline Storyboard.TargetName="soundMediaElement" RepeatBehavior="Forever" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger.Actions>
+                </EventTrigger>
+            </MediaElement.Triggers>
+        </MediaElement>
     </Grid>
 </Window>

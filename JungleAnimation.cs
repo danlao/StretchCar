@@ -8,7 +8,6 @@ namespace Microsoft.Samples.Kinect.DepthBasics
 {
     class JungleAnimation : Animation
     {
-
         public JungleAnimation()
         {
             this.generatePath();
@@ -20,7 +19,13 @@ namespace Microsoft.Samples.Kinect.DepthBasics
             rootPath += "\\html\\Jungle";
             this.stillScenePath = rootPath + "\\still.html";
             this.movingScenePath = rootPath + "\\driving.html";
+			this.audioPath = rootPath + "\\Jungle_Song.mp3";
         }
+
+		public override String getAudioPath()
+		{
+			return this.audioPath;
+		}
 
         public override void carMoves(System.Windows.Controls.WebBrowser webBrowser)
         {
