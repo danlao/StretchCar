@@ -26,7 +26,9 @@ namespace Microsoft.Samples.Kinect.DepthBasics
         {
             Still,
             Moving,
+            Rain,
             AnimalShowing,
+            AnimalStill,
             AnimalLeaving
         };
 
@@ -40,12 +42,12 @@ namespace Microsoft.Samples.Kinect.DepthBasics
         {
             InitializeComponent();
 
-            this.sceneStatus = SceneStatus.Still;
             this.animation = new JungleAnimation();
+            this.sceneStatus = SceneStatus.Still;
             this.animation.carStops(this.GUI);
 
-			soundMediaElement.Source = new Uri(this.animation.getAudioPath());
-			soundMediaElement.Play();
+            //soundMediaElement.Source = new Uri(this.animation.getAudioPath());
+            //soundMediaElement.Play();
         }
 
         public void steerPressed()
@@ -56,40 +58,131 @@ namespace Microsoft.Samples.Kinect.DepthBasics
                 sceneStatus = SceneStatus.Moving;
             }
 
-			Console.WriteLine("steering wheel pressed");
+            Console.WriteLine("steering wheel pressed");
         }
 
         public void hornPressed()
         {
-            if (sceneStatus == SceneStatus.AnimalShowing)
+            if (sceneStatus == SceneStatus.AnimalShowing || sceneStatus == SceneStatus.AnimalStill)
             {
                 this.animation.animalLeaves(this.GUI);
                 sceneStatus = SceneStatus.AnimalLeaving;
+                Thread thread = new Thread(handleAnimalLeavingTransition);
+                thread.Start();
             }
 
-			Console.WriteLine("horn pressed");
+            Console.WriteLine("horn pressed");
         }
 
         public void windshieldWiperPressed()
         {
-			// TODO: implement this
+            // TODO: implement this
+            if (sceneStatus == SceneStatus.Still)
+            {
+                this.animation.startRain(this.GUI);
+                sceneStatus = SceneStatus.Rain;
+                Thread thread = new Thread(handleRainingTransition);
+                thread.Start();
+            }
         }
 
         public void animalButtonPressed()
         {
-            if (sceneStatus == SceneStatus.Moving || sceneStatus == SceneStatus.Still)
+            if (sceneStatus == SceneStatus.Still)
             {
                 this.animation.animalAppears(this.GUI);
                 sceneStatus = SceneStatus.AnimalShowing;
+                Thread thread = new Thread(handleAnimalShowingTransition);
+                thread.Start();
+            }
+        }
+
+        public void noPress()
+        {
+            if (sceneStatus == SceneStatus.Moving)
+            {
+                this.animation.carStops(this.GUI);
+                sceneStatus = SceneStatus.Still;
             }
         }
 
         public void switchEnvironment()
         {
             this.animation = (Animation)this.animations[(this.animations.IndexOf(this.animation) + 1) % this.animations.Count];
-			soundMediaElement.Close();
-			soundMediaElement.Source = new Uri(this.animation.getAudioPath());
-			soundMediaElement.Play();
+            //soundMediaElement.Close();
+            //soundMediaElement.Source = new Uri(this.animation.getAudioPath());
+            //soundMediaElement.Play();
+        }
+
+        public void handleAnimalShowingTransition()
+        {
+            DateTime startTime = DateTime.Now;
+            while (true)
+            {
+                TimeSpan d = DateTime.Now - startTime;
+                if (d.Milliseconds > 3000)
+                {
+                    if (sceneStatus == SceneStatus.AnimalShowing)
+                    {
+                        this.animation.animalStill(this.GUI);
+                        sceneStatus = SceneStatus.AnimalStill;
+                    }
+                    break;
+                }
+            }
+        }
+
+        public void handleAnimalLeavingTransition()
+        {
+            DateTime startTime = DateTime.Now;
+            while (true)
+            {
+                TimeSpan d = DateTime.Now - startTime;
+                if (d.Milliseconds > 3000)
+                {
+                    if (sceneStatus == SceneStatus.AnimalLeaving)
+                    {
+                        this.animation.carStops(this.GUI);
+                        sceneStatus = SceneStatus.Still;
+                    }
+                    break;
+                }
+            }
+        }
+
+
+        public void handleRainingTransition()
+        {
+            DateTime startTime = DateTime.Now;
+            while (true)
+            {
+                TimeSpan d = DateTime.Now - startTime;
+                if (d.Milliseconds > 9000)
+                {
+                    if (sceneStatus == SceneStatus.Rain)
+                    {
+                        this.animation.carStops(this.GUI);
+                        sceneStatus = SceneStatus.Still;
+                    }
+                    break;
+                }
+                else if (d.Milliseconds > 6000)
+                {
+                    if (sceneStatus == SceneStatus.Rain)
+                    {
+                        this.animation.endRain(this.GUI);
+                    }
+                    break;
+                }
+                else if (d.Milliseconds > 3000)
+                {
+                    if (sceneStatus == SceneStatus.Rain)
+                    {
+                        this.animation.Raining(this.GUI);
+                    }
+                    break;
+                }
+            }
         }
     }
 }

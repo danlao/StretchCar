@@ -108,7 +108,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="html\Jungle\Jungle.ai" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -116,7 +115,6 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="html\Jungle\Still.jpg" />
     <Resource Include="Images\Kinect.ico" />
     <Resource Include="Images\Logo.png" />
     <Resource Include="Images\Status.png" />
@@ -128,25 +126,31 @@
     <Resource Include="Images\UncheckedNormal.png" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="html\basic.html" />
-    <Content Include="html\crocodile.html" />
     <Content Include="html\Jungle\crocodile.html" />
-    <Content Include="html\Jungle\Crocodile.swf" />
     <Content Include="html\Jungle\driving.html" />
-    <Content Include="html\Jungle\Driving.swf" />
     <Content Include="html\Jungle\giraffe.html" />
-    <Content Include="html\Jungle\Giraffe.swf" />
+    <Content Include="html\Jungle\Horn.mp3" />
+    <Content Include="html\Jungle\Jungle_Crocodile_Entering.swf" />
+    <Content Include="html\Jungle\Jungle_Crocodile_Leaving.swf" />
+    <Resource Include="html\Jungle\Jungle_Crocodile_Still.jpg" />
+    <Content Include="html\Jungle\Jungle_Driving.swf" />
+    <Content Include="html\Jungle\Jungle_Giraffe_Entering.swf" />
+    <Content Include="html\Jungle\Jungle_Giraffe_Leaving.swf" />
+    <Resource Include="html\Jungle\Jungle_Giraffe_Still.jpg" />
+    <Content Include="html\Jungle\Jungle_Lion_Entering.swf" />
+    <Content Include="html\Jungle\Jungle_Lion_Leaving.swf" />
+    <Resource Include="html\Jungle\Jungle_Lion_Still.jpg" />
+    <Content Include="html\Jungle\Jungle_Monkey_Entering.swf" />
+    <Content Include="html\Jungle\Jungle_Monkey_Leaving.swf" />
+    <Resource Include="html\Jungle\Jungle_Monkey_Still.jpg" />
+    <Content Include="html\Jungle\Jungle_Rain_Continuing.swf" />
+    <Content Include="html\Jungle\Jungle_Rain_Ending.swf" />
+    <Content Include="html\Jungle\Jungle_Rain_Starting.swf" />
     <Content Include="html\Jungle\Jungle_Song.mp3" />
+    <Resource Include="html\Jungle\Jungle_Still.jpg" />
     <Content Include="html\Jungle\lion.html" />
-    <Content Include="html\Jungle\Lion.swf" />
     <Content Include="html\Jungle\monkey.html" />
-    <Content Include="html\Jungle\Monkey.swf" />
     <Content Include="html\Jungle\still.html" />
-    <Content Include="html\Jungle_Crocodile.swf" />
-    <Content Include="html\Jungle_Driving.swf" />
-    <Content Include="html\monkey.html" />
-    <Resource Include="html\Jungle_Illustrations.png" />
-    <Content Include="html\Jungle_Monkey.swf" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -19,32 +19,16 @@ namespace Microsoft.Samples.Kinect.DepthBasics
             rootPath += "\\html\\Jungle";
             this.stillScenePath = rootPath + "\\still.html";
             this.movingScenePath = rootPath + "\\driving.html";
-			this.audioPath = rootPath + "\\Jungle_Song.mp3";
-        }
+            this.audioPath = rootPath + "\\Jungle_Song.mp3";
 
-		public override String getAudioPath()
-		{
-			return this.audioPath;
-		}
+            this.animalScenePathTuples.Add(new Tuple<String, String, String>(rootPath + "\\crocodile_entering.html", rootPath + "\\crocodile_still.html", rootPath + "\\crocodile_leaving.html"));
+            this.animalScenePathTuples.Add(new Tuple<String, String, String>(rootPath + "\\giraffe_entering.html", rootPath + "\\giraffe_still.html", rootPath + "\\giraffe_leaving.html"));
+            this.animalScenePathTuples.Add(new Tuple<String, String, String>(rootPath + "\\lion_entering.html", rootPath + "\\lion_still.html", rootPath + "\\lion_leaving.html"));
+            this.animalScenePathTuples.Add(new Tuple<String, String, String>(rootPath + "\\monkey_entering.html", rootPath + "\\monkey_still.html", rootPath + "\\monkey_leaving.html"));
 
-        public override void carMoves(System.Windows.Controls.WebBrowser webBrowser)
-        {
-            webBrowser.Source = new Uri(this.movingScenePath);
-        }
-
-        public override void carStops(System.Windows.Controls.WebBrowser webBrowser)
-        {
-            webBrowser.Source = new Uri(this.stillScenePath);
-        }
-
-        public override void animalAppears(System.Windows.Controls.WebBrowser webBrowser)
-        {
-			// TODO: implement when receive animation files
-        }
-
-        public override void animalLeaves(System.Windows.Controls.WebBrowser webBrowser)
-        {
-			// TODO: implement when receive animation files
+            this.animalShowingScenePath = ((Tuple<String, String, String>)this.animalScenePathTuples[0]).Item1;
+            this.animalStillScenePath = ((Tuple<String, String, String>)this.animalScenePathTuples[0]).Item2;
+            this.animalLeavingScenePath = ((Tuple<String, String, String>)this.animalScenePathTuples[0]).Item3;
         }
 
     }

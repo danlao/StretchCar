@@ -190,6 +190,10 @@ namespace Microsoft.Samples.Kinect.DepthBasics
                         {
                             gameWindow.windshieldWiperPressed();
                         }
+                        else
+                        {
+                            gameWindow.noPress();
+                        }
 					}
 
 					// TODO: check windshield timer
