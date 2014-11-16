@@ -15,7 +15,6 @@ namespace Microsoft.Samples.Kinect.DepthBasics
     {
         void App_Startup(object sender, StartupEventArgs e)
         {
-
             StretchCar stretchCar = new StretchCar();
         }
     }

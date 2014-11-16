@@ -13,6 +13,7 @@ namespace Microsoft.Samples.Kinect.DepthBasics
     using System.Windows.Media;
     using System.Windows.Media.Imaging;
     using Microsoft.Kinect;
+    using System.Collections;
 
     public class StretchCar
     {
@@ -39,13 +40,37 @@ namespace Microsoft.Samples.Kinect.DepthBasics
 
         private Dashboard dashboard;
 
+        private static int SCREEN_WIDTH = 640;
+        private static int SCREEN_HEIGHT = 480;
+
+        private static int STEER_X = 120;
+        private static int STEER_Y = 240;
+        private static int STEER_RADIUS = 120;
+
+        private static int HORN_X1 = 240;
+        private static int HORN_Y1 = 60;
+        private static int HORN_X2 = 420;
+        private static int HORN_Y2 = 60;
+        private static int HORN_X3 = 330;
+        private static int HORN_Y3 = 440;
+
+        private static int ANIMAL_BUTTON_X = 520;
+        private static int ANIMAL_BUTTON_Y = 200;
+        private static int ANIMAL_BUTTON_RADIUS = 100;
+
+        private static int WINDSHIELD_WIPER_X1 = 420;
+        private static int WINDSHIELD_WIPER_Y1 = 320;
+        private static int WINDSHIELD_WIPER_X2 = 620;
+        private static int WINDSHIELD_WIPER_Y2 = 440;
+
         public StretchCar()
         {
             gameWindow = new Windshield();
             dashboard = new Dashboard();
-            dashboard.addItem(new SteeringWheel(100, 100, 50));
-			dashboard.addItem(new Horn(640, 0, 640, 100, 540, 0));
-			// TODO: add more dashboard items later
+            dashboard.addItem(new SteeringWheel(STEER_X, STEER_Y, STEER_RADIUS));
+            dashboard.addItem(new Horn(HORN_X1, HORN_Y1, HORN_X2, HORN_Y2, HORN_X3, HORN_Y3));
+            dashboard.addItem(new AnimalButton(ANIMAL_BUTTON_X, ANIMAL_BUTTON_Y, ANIMAL_BUTTON_RADIUS));
+            dashboard.addItem(new WindshieldWiper(WINDSHIELD_WIPER_X1, WINDSHIELD_WIPER_Y1, WINDSHIELD_WIPER_X2, WINDSHIELD_WIPER_Y2));
 
             this.setup();
 
@@ -80,7 +105,7 @@ namespace Microsoft.Samples.Kinect.DepthBasics
                 // Allocate space to put the color pixels we'll create
                 this.colorPixels = new byte[this.sensor.DepthStream.FramePixelDataLength * sizeof(int)];
 
-               
+
                 // Add an event handler to be called whenever there is new depth frame data
                 this.sensor.DepthFrameReady += this.SensorDepthFrameReady;
 
@@ -194,16 +219,109 @@ namespace Microsoft.Samples.Kinect.DepthBasics
                         {
                             gameWindow.noPress();
                         }
-					}
+                    }
+                    else
+                    {
+                        gameWindow.noPress();
+                    }
 
-					// TODO: check windshield timer
+                    // TODO: check windshield timer
+
+                    this.drawCircle(STEER_X, STEER_Y, STEER_RADIUS);
+                    this.drawRectangle(WINDSHIELD_WIPER_X1, WINDSHIELD_WIPER_Y1, WINDSHIELD_WIPER_X2, WINDSHIELD_WIPER_Y2);
+                    this.drawTriangle(HORN_X1, HORN_Y1, HORN_X2, HORN_Y2, HORN_X3, HORN_Y3);
+                    this.drawCircle(ANIMAL_BUTTON_X, ANIMAL_BUTTON_Y, ANIMAL_BUTTON_RADIUS);
 
                     this.monitor.paintBitmap(index, iDepth, this.colorPixels);
 
-                  
+
                 }
             }
         }
 
+        private void paintRed(int x, int y)
+        {
+            for (int i = x - 7; i < x + 7; ++i)
+            {
+                for (int j = y - 7; j < y + 7; ++j)
+                {
+                    if (i >= 0 && i < 640 && j >= 0 && j < 480)
+                    {
+                        colorPixels[(j * 640 + i) * 4] = (byte)0;
+                        colorPixels[(j * 640 + i) * 4 + 1] = (byte)0;
+                        colorPixels[(j * 640 + i) * 4 + 2] = (byte)255;
+                    }
+                }
+            }
+        }
+
+        private void drawCircle(int xCoord, int yCoord, int radius)
+        {
+            if (xCoord - radius < 0 || xCoord + radius >= SCREEN_WIDTH || yCoord - radius < 0 || yCoord + radius >= SCREEN_HEIGHT)
+            {
+                return;
+            }
+            for (int i = 0; i <= radius; ++i)
+            {
+                int d = (int)Math.Sqrt(Math.Pow(radius, 2) - Math.Pow(i, 2));
+                int x = xCoord + i;
+                int y = yCoord + d;
+                paintRed(x, y);
+                y = yCoord - d;
+                paintRed(x, y);
+                x = xCoord - i;
+                paintRed(x, y);
+                y = yCoord + d;
+                paintRed(x, y);
+            }
+
+        }
+
+        private void drawRectangle(int x1, int y1, int x2, int y2)
+        {
+            if (x1 < 0 || x1 >= SCREEN_WIDTH || x2 < 0 || x2 >= SCREEN_WIDTH ||
+                y1 < 0 || y1 >= SCREEN_HEIGHT || y2 < 0 || y2 >= SCREEN_HEIGHT)
+            {
+                return;
+            }
+            for (int i = (x1 < x2 ? x1 : x2); i <= (x1 > x2 ? x1 : x2); ++i)
+            {
+                paintRed(i, y1);
+                paintRed(i, y2);
+            }
+            for (int j = (y1 < y2 ? y1 : y2); j <= (y1 > y2 ? y1 : y2); ++j)
+            {
+                paintRed(x1, j);
+                paintRed(x2, j);
+            }
+
+        }
+
+        private void drawTriangle(int x1, int y1, int x2, int y2, int x3, int y3)
+        {
+            if (x1 < 0 || x1 >= SCREEN_WIDTH || x2 < 0 || x2 >= SCREEN_WIDTH ||
+                x3 < 0 || x3 >= SCREEN_WIDTH || y1 < 0 || y1 >= SCREEN_HEIGHT ||
+                y2 < 0 || y2 >= SCREEN_HEIGHT || y3 < 0 || y3 >= SCREEN_HEIGHT)
+            {
+                return;
+            }
+            for (int i = (x1 < x2 ? x1 : x2); i <= (x1 > x2 ? x1 : x2); ++i)
+            {
+                int y = y1 + (i - x1) * (y2 - y1) / (x2 - x1);
+                paintRed(i, y);
+            }
+            for (int i = (x2 < x3 ? x2 : x3); i <= (x2 > x3 ? x2 : x3); ++i)
+            {
+                int y = y2 + (i - x2) * (y3 - y2) / (x3 - x2);
+                paintRed(i, y);
+            }
+            for (int i = (x1 < x3 ? x1 : x3); i <= (x1 > x3 ? x1 : x3); ++i)
+            {
+                int y = y1 + (i - x1) * (y3 - y1) / (x3 - x1);
+                paintRed(i, y);
+            }
+        }
+
     }
+
 }

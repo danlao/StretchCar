@@ -21,6 +21,16 @@ namespace Microsoft.Samples.Kinect.DepthBasics
 
         protected ArrayList animalScenePathTuples;
 
+        protected int numAnimal;
+
+        protected Random rand;
+
+        public Animation()
+        {
+            this.animalScenePathTuples = new ArrayList();
+            this.rand = new Random();
+        }
+
         public void generateRootPath()
         {
             rootPath = System.AppDomain.CurrentDomain.BaseDirectory;
@@ -78,6 +88,14 @@ namespace Microsoft.Samples.Kinect.DepthBasics
         public void endRain(System.Windows.Controls.WebBrowser webBrowser)
         {
             webBrowser.Source = new Uri(this.rainEndScenePath);
+        }
+
+        public void rollAnimal()
+        {
+            int randInt = this.rand.Next(0, this.numAnimal);
+            this.animalShowingScenePath = ((Tuple<String, String, String>)this.animalScenePathTuples[randInt]).Item1;
+            this.animalStillScenePath = ((Tuple<String, String, String>)this.animalScenePathTuples[randInt]).Item2;
+            this.animalLeavingScenePath = ((Tuple<String, String, String>)this.animalScenePathTuples[randInt]).Item3;
         }
     }
 }

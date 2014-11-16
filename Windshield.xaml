@@ -5,7 +5,7 @@
     
     <Grid>
         <WebBrowser Name="GUI"></WebBrowser>
-        <MediaElement Height="120" LoadedBehavior="Manual" Name="soundMediaElement">
+        <!--<MediaElement Height="120" LoadedBehavior="Manual" Name="soundMediaElement">
             <MediaElement.Triggers>
                 <EventTrigger RoutedEvent="MediaElement.Loaded">
                     <EventTrigger.Actions>
@@ -17,6 +17,6 @@
                     </EventTrigger.Actions>
                 </EventTrigger>
             </MediaElement.Triggers>
-        </MediaElement>
+        </MediaElement>-->
     </Grid>
 </Window>

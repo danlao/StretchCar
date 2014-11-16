@@ -125,33 +125,6 @@
     <Resource Include="Images\UncheckedHover.png" />
     <Resource Include="Images\UncheckedNormal.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Content Include="html\Jungle\crocodile.html" />
-    <Content Include="html\Jungle\driving.html" />
-    <Content Include="html\Jungle\giraffe.html" />
-    <Content Include="html\Jungle\Horn.mp3" />
-    <Content Include="html\Jungle\Jungle_Crocodile_Entering.swf" />
-    <Content Include="html\Jungle\Jungle_Crocodile_Leaving.swf" />
-    <Resource Include="html\Jungle\Jungle_Crocodile_Still.jpg" />
-    <Content Include="html\Jungle\Jungle_Driving.swf" />
-    <Content Include="html\Jungle\Jungle_Giraffe_Entering.swf" />
-    <Content Include="html\Jungle\Jungle_Giraffe_Leaving.swf" />
-    <Resource Include="html\Jungle\Jungle_Giraffe_Still.jpg" />
-    <Content Include="html\Jungle\Jungle_Lion_Entering.swf" />
-    <Content Include="html\Jungle\Jungle_Lion_Leaving.swf" />
-    <Resource Include="html\Jungle\Jungle_Lion_Still.jpg" />
-    <Content Include="html\Jungle\Jungle_Monkey_Entering.swf" />
-    <Content Include="html\Jungle\Jungle_Monkey_Leaving.swf" />
-    <Resource Include="html\Jungle\Jungle_Monkey_Still.jpg" />
-    <Content Include="html\Jungle\Jungle_Rain_Continuing.swf" />
-    <Content Include="html\Jungle\Jungle_Rain_Ending.swf" />
-    <Content Include="html\Jungle\Jungle_Rain_Starting.swf" />
-    <Content Include="html\Jungle\Jungle_Song.mp3" />
-    <Resource Include="html\Jungle\Jungle_Still.jpg" />
-    <Content Include="html\Jungle\lion.html" />
-    <Content Include="html\Jungle\monkey.html" />
-    <Content Include="html\Jungle\still.html" />
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

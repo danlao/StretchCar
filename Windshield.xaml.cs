@@ -26,7 +26,9 @@ namespace Microsoft.Samples.Kinect.DepthBasics
         {
             Still,
             Moving,
-            Rain,
+            RainStart,
+            Raining,
+            RainEnd,
             AnimalShowing,
             AnimalStill,
             AnimalLeaving
@@ -57,21 +59,18 @@ namespace Microsoft.Samples.Kinect.DepthBasics
                 this.animation.carMoves(this.GUI);
                 sceneStatus = SceneStatus.Moving;
             }
-
-            Console.WriteLine("steering wheel pressed");
         }
 
         public void hornPressed()
         {
-            if (sceneStatus == SceneStatus.AnimalShowing || sceneStatus == SceneStatus.AnimalStill)
+            if (sceneStatus == SceneStatus.AnimalStill)
             {
                 this.animation.animalLeaves(this.GUI);
                 sceneStatus = SceneStatus.AnimalLeaving;
+                // TODO play honk sound
                 Thread thread = new Thread(handleAnimalLeavingTransition);
                 thread.Start();
             }
-
-            Console.WriteLine("horn pressed");
         }
 
         public void windshieldWiperPressed()
@@ -80,7 +79,7 @@ namespace Microsoft.Samples.Kinect.DepthBasics
             if (sceneStatus == SceneStatus.Still)
             {
                 this.animation.startRain(this.GUI);
-                sceneStatus = SceneStatus.Rain;
+                sceneStatus = SceneStatus.RainStart;
                 Thread thread = new Thread(handleRainingTransition);
                 thread.Start();
             }
@@ -90,6 +89,7 @@ namespace Microsoft.Samples.Kinect.DepthBasics
         {
             if (sceneStatus == SceneStatus.Still)
             {
+                this.animation.rollAnimal();
                 this.animation.animalAppears(this.GUI);
                 sceneStatus = SceneStatus.AnimalShowing;
                 Thread thread = new Thread(handleAnimalShowingTransition);
@@ -120,11 +120,14 @@ namespace Microsoft.Samples.Kinect.DepthBasics
             while (true)
             {
                 TimeSpan d = DateTime.Now - startTime;
-                if (d.Milliseconds > 3000)
+                if (d.TotalMilliseconds > 3000)
                 {
                     if (sceneStatus == SceneStatus.AnimalShowing)
                     {
-                        this.animation.animalStill(this.GUI);
+                        this.Dispatcher.Invoke((Action)delegate()
+                        {
+                            this.animation.animalStill(this.GUI);
+                        });
                         sceneStatus = SceneStatus.AnimalStill;
                     }
                     break;
@@ -138,11 +141,14 @@ namespace Microsoft.Samples.Kinect.DepthBasics
             while (true)
             {
                 TimeSpan d = DateTime.Now - startTime;
-                if (d.Milliseconds > 3000)
+                if (d.TotalMilliseconds > 3000)
                 {
                     if (sceneStatus == SceneStatus.AnimalLeaving)
                     {
-                        this.animation.carStops(this.GUI);
+                        this.Dispatcher.Invoke((Action)delegate()
+                        {
+                            this.animation.carStops(this.GUI);
+                        });
                         sceneStatus = SceneStatus.Still;
                     }
                     break;
@@ -157,30 +163,39 @@ namespace Microsoft.Samples.Kinect.DepthBasics
             while (true)
             {
                 TimeSpan d = DateTime.Now - startTime;
-                if (d.Milliseconds > 9000)
+                Console.WriteLine(d.TotalMilliseconds);
+                if (d.TotalMilliseconds > 9000 && sceneStatus == SceneStatus.RainEnd)
                 {
-                    if (sceneStatus == SceneStatus.Rain)
+                    Console.WriteLine("2");
+                    this.Dispatcher.Invoke((Action)delegate()
                     {
                         this.animation.carStops(this.GUI);
-                        sceneStatus = SceneStatus.Still;
-                    }
+                    });
+                    sceneStatus = SceneStatus.Still;
+
                     break;
                 }
-                else if (d.Milliseconds > 6000)
+                else if (d.TotalMilliseconds > 6000 && sceneStatus == SceneStatus.Raining)
                 {
-                    if (sceneStatus == SceneStatus.Rain)
+                    Console.WriteLine("3");
+
+                    this.Dispatcher.Invoke((Action)delegate()
                     {
                         this.animation.endRain(this.GUI);
-                    }
-                    break;
+                    });
+                    sceneStatus = SceneStatus.RainEnd;
+
                 }
-                else if (d.Milliseconds > 3000)
+                else if (d.TotalMilliseconds > 3000 && sceneStatus == SceneStatus.RainStart)
                 {
-                    if (sceneStatus == SceneStatus.Rain)
+                    Console.WriteLine("4");
+
+                    this.Dispatcher.Invoke((Action)delegate()
                     {
                         this.animation.Raining(this.GUI);
-                    }
-                    break;
+                    });
+                    sceneStatus = SceneStatus.Raining;
+
                 }
             }
         }
