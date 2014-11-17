@@ -63,6 +63,7 @@
     </ApplicationDefinition>
     <Compile Include="AnimalButton.cs" />
     <Compile Include="Animation.cs" />
+    <Compile Include="CountrysideAnimation.cs" />
     <Compile Include="Horn.cs" />
     <Compile Include="JungleAnimation.cs" />
     <Compile Include="SteeringWheel.cs" />

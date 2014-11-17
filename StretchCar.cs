@@ -63,6 +63,9 @@ namespace Microsoft.Samples.Kinect.DepthBasics
         private static int WINDSHIELD_WIPER_X2 = 620;
         private static int WINDSHIELD_WIPER_Y2 = 440;
 
+		private DateTime steerStartTime;
+		private bool steerDown = false;
+
         public StretchCar()
         {
             gameWindow = new Windshield();
@@ -202,6 +205,13 @@ namespace Microsoft.Samples.Kinect.DepthBasics
                         if (item is SteeringWheel)
                         {
                             gameWindow.steerPressed();
+
+							// handle total steering wheel pressed duration
+							if (!steerDown)
+							{
+								steerStartTime = DateTime.Now;
+								steerDown = true;
+							}
                         }
                         else if (item is Horn)
                         {
@@ -219,13 +229,25 @@ namespace Microsoft.Samples.Kinect.DepthBasics
                         {
                             gameWindow.noPress();
                         }
+
+						// handle total steering wheel pressed duration
+						if (!(item is SteeringWheel) && steerDown)
+						{
+							gameWindow.updateSteerTime(DateTime.Now - steerStartTime);
+							steerDown = false;
+						}
                     }
                     else
                     {
                         gameWindow.noPress();
                     }
 
-                    // TODO: check windshield timer
+                    // check windshield timer, then switch scene/animation
+
+					if (gameWindow.getSteerTime().TotalSeconds > 10)
+					{
+						gameWindow.switchEnvironment();
+					}
 
                     this.drawCircle(STEER_X, STEER_Y, STEER_RADIUS);
                     this.drawRectangle(WINDSHIELD_WIPER_X1, WINDSHIELD_WIPER_Y1, WINDSHIELD_WIPER_X2, WINDSHIELD_WIPER_Y2);

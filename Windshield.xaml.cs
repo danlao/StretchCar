@@ -38,16 +38,21 @@ namespace Microsoft.Samples.Kinect.DepthBasics
         Animation animation;
         ArrayList animations;
 
+		TimeSpan steerTime = TimeSpan.Zero;
+
         private string rootpath = System.AppDomain.CurrentDomain.BaseDirectory;
 
         public Windshield()
         {
-            InitializeComponent();
+			InitializeComponent();
 
-            this.animation = new JungleAnimation();
+			this.animations = new ArrayList();
+			this.animations.Add(new JungleAnimation());
+			this.animations.Add(new CountrysideAnimation());
+
+            this.animation = this.animations[0] as Animation;
             this.sceneStatus = SceneStatus.Still;
             this.animation.carStops(this.GUI);
-
             //soundMediaElement.Source = new Uri(this.animation.getAudioPath());
             //soundMediaElement.Play();
         }
@@ -199,5 +204,15 @@ namespace Microsoft.Samples.Kinect.DepthBasics
                 }
             }
         }
+
+		public void updateSteerTime(TimeSpan timeVal)
+		{
+			steerTime += timeVal;
+		}
+
+		public TimeSpan getSteerTime()
+		{
+			return steerTime;
+		}
     }
 }

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Microsoft.Samples.Kinect.DepthBasics
 {
-    class JungleAnimation : Animation
+    class CountrysideAnimation : Animation
     {
         public CountrysideAnimation()
             : base()
