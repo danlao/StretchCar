@@ -114,6 +114,7 @@ namespace Microsoft.Samples.Kinect.DepthBasics
         public void switchEnvironment()
         {
             this.animation = (Animation)this.animations[(this.animations.IndexOf(this.animation) + 1) % this.animations.Count];
+			this.steerTime = TimeSpan.Zero;
             //soundMediaElement.Close();
             //soundMediaElement.Source = new Uri(this.animation.getAudioPath());
             //soundMediaElement.Play();
