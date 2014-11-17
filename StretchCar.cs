@@ -254,7 +254,7 @@ namespace Microsoft.Samples.Kinect.DepthBasics
                     this.drawTriangle(HORN_X1, HORN_Y1, HORN_X2, HORN_Y2, HORN_X3, HORN_Y3);
                     this.drawCircle(ANIMAL_BUTTON_X, ANIMAL_BUTTON_Y, ANIMAL_BUTTON_RADIUS);
 
-                    this.monitor.paintBitmap(index, iDepth, this.colorPixels);
+                    this.monitor.paintBitmap(index, iDepth, this.colorPixels, iDepth <= SENSITIVE_DEPTH);
 
 
                 }

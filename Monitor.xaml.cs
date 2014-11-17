@@ -76,18 +76,18 @@ namespace Microsoft.Samples.Kinect.DepthBasics
             }
         }
 
-        public void paintBitmap(int index, int depth, byte[] colorPixels)
+        public void paintBitmap(int index, int depth, byte[] colorPixels, bool sensitive)
         {
             lblDepth.Content = "val: " + index + "\tx-coord: " + index % 640 + "\ty-coord: " + index / 640 + "\tdepth: " + depth;
 
-            for (int i = index % 640 - 20; i < index % 640 + 20; ++i)
+            for (int i = index % 640 - 10; i < index % 640 + 10; ++i)
             {
-                for (int j = index / 640 - 20; j < index / 640 + 20; ++j)
+                for (int j = index / 640 - 10; j < index / 640 + 10; ++j)
                 {
                     if (i >= 0 && i < 640 && j >= 0 && j < 480)
                     {
-                        colorPixels[(j * 640 + i) * 4] = (byte)255;
-                        colorPixels[(j * 640 + i) * 4 + 1] = (byte)0;
+                        colorPixels[(j * 640 + i) * 4] = (byte)(sensitive ? 0 : 255);
+                        colorPixels[(j * 640 + i) * 4 + 1] = (byte)(sensitive ? 255 : 0);
                         colorPixels[(j * 640 + i) * 4 + 2] = (byte)0;
                     }
                 }
@@ -140,7 +140,7 @@ namespace Microsoft.Samples.Kinect.DepthBasics
                 this.statusBarText.Text = string.Format(CultureInfo.InvariantCulture, "{0} {1}", Properties.Resources.ScreenshotWriteFailed, path);
             }
         }
-        
+
         /// <summary>
         /// Handles the checking or unchecking of the near mode combo box
         /// </summary>

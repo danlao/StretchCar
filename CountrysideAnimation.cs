@@ -32,6 +32,7 @@ namespace Microsoft.Samples.Kinect.DepthBasics
             //this.rainStartScenePath = rootPath + "\\rain_start.html";  no rain files
             //this.rainingScenePath = rootPath + "\\raining.html";
             //this.rainEndScenePath = rootPath + "\\rain_end.html";
+            this.rainStartScenePath = this.rainingScenePath = this.rainEndScenePath = this.stillScenePath; // avoid exception
         }
 
     }

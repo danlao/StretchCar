@@ -68,11 +68,11 @@ namespace Microsoft.Samples.Kinect.DepthBasics
 
         public void hornPressed()
         {
+            // TODO play honk sound
             if (sceneStatus == SceneStatus.AnimalStill)
             {
                 this.animation.animalLeaves(this.GUI);
                 sceneStatus = SceneStatus.AnimalLeaving;
-                // TODO play honk sound
                 Thread thread = new Thread(handleAnimalLeavingTransition);
                 thread.Start();
             }
@@ -80,7 +80,6 @@ namespace Microsoft.Samples.Kinect.DepthBasics
 
         public void windshieldWiperPressed()
         {
-            // TODO: implement this
             if (sceneStatus == SceneStatus.Still)
             {
                 this.animation.startRain(this.GUI);
@@ -114,6 +113,7 @@ namespace Microsoft.Samples.Kinect.DepthBasics
         public void switchEnvironment()
         {
             this.animation = (Animation)this.animations[(this.animations.IndexOf(this.animation) + 1) % this.animations.Count];
+            this.animation.carStops(this.GUI);
 			this.steerTime = TimeSpan.Zero;
             //soundMediaElement.Close();
             //soundMediaElement.Source = new Uri(this.animation.getAudioPath());
@@ -169,10 +169,8 @@ namespace Microsoft.Samples.Kinect.DepthBasics
             while (true)
             {
                 TimeSpan d = DateTime.Now - startTime;
-                Console.WriteLine(d.TotalMilliseconds);
                 if (d.TotalMilliseconds > 9000 && sceneStatus == SceneStatus.RainEnd)
                 {
-                    Console.WriteLine("2");
                     this.Dispatcher.Invoke((Action)delegate()
                     {
                         this.animation.carStops(this.GUI);
@@ -183,8 +181,6 @@ namespace Microsoft.Samples.Kinect.DepthBasics
                 }
                 else if (d.TotalMilliseconds > 6000 && sceneStatus == SceneStatus.Raining)
                 {
-                    Console.WriteLine("3");
-
                     this.Dispatcher.Invoke((Action)delegate()
                     {
                         this.animation.endRain(this.GUI);
@@ -194,8 +190,6 @@ namespace Microsoft.Samples.Kinect.DepthBasics
                 }
                 else if (d.TotalMilliseconds > 3000 && sceneStatus == SceneStatus.RainStart)
                 {
-                    Console.WriteLine("4");
-
                     this.Dispatcher.Invoke((Action)delegate()
                     {
                         this.animation.Raining(this.GUI);
