@@ -18,7 +18,7 @@ namespace Microsoft.Samples.Kinect.DepthBasics
             base.generateRootPath();
             rootPath += "\\html\\Countryside";
             this.stillScenePath = rootPath + "\\still.html";
-            //this.movingScenePath = rootPath + "\\driving.html"; //no driving file
+            this.movingScenePath = rootPath + "\\driving.html"; 
             //this.audioPath = rootPath + "\\Countryside_Song.mp3"; //no audio
 
             this.animalScenePathTuples.Add(new Tuple<String, String, String>(rootPath + "\\bird_enter.html", rootPath + "\\bird_still.html", rootPath + "\\bird_leave.html"));
