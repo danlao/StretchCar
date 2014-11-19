@@ -1,0 +1,6 @@
+driving 10.0
+crocodile 2.9 3.8
+giraffe 2.8 2.5
+lion 2.5 2.5
+monkey 6.2 3.3
+raining 10.0
