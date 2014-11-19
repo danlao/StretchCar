@@ -1,10 +1,6 @@
 driving 18.0
-rabbit_enter 2.0
-rabbit_leave 1.6
-cow_enter 3.3
-cow_leave 3.0
-dog_enter 2.9
-dog_leave 1.5
-bird_enter 1.1
-bird_leave 1.0
+rabbit 2.0 1.6
+cow 3.3 3.0
+dog 2.9 1.5
+bird 1.1 1.0
 raining 0.0

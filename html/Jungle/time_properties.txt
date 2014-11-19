@@ -1,10 +1,6 @@
 driving 10.0
-crocodile_enter 2.9
-crocodile_leave 3.8
-giraffe_enter 2.8
-giraffe_leave 2.5
-lion_enter 2.5
-lion_leave 2.5
-monkey_enter 6.2
-monkey_leave 3.3
+crocodile 2.9 3.8
+giraffe 2.8 2.5
+lion 2.5 2.5
+monkey 6.2 3.3
 raining 10.0
