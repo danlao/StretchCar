@@ -26,9 +26,7 @@ namespace Microsoft.Samples.Kinect.DepthBasics
         {
             Still,
             Moving,
-            RainStart,
             Raining,
-            RainEnd,
             AnimalShowing,
             AnimalStill,
             AnimalLeaving
@@ -82,8 +80,8 @@ namespace Microsoft.Samples.Kinect.DepthBasics
         {
             if (sceneStatus == SceneStatus.Still)
             {
-                this.animation.startRain(this.GUI);
-                sceneStatus = SceneStatus.RainStart;
+                this.animation.Raining(this.GUI);
+                sceneStatus = SceneStatus.Raining;
                 Thread thread = new Thread(handleRainingTransition);
                 thread.Start();
             }
@@ -169,7 +167,7 @@ namespace Microsoft.Samples.Kinect.DepthBasics
             while (true)
             {
                 TimeSpan d = DateTime.Now - startTime;
-                if (d.TotalMilliseconds > 9000 && sceneStatus == SceneStatus.RainEnd)
+                if (d.TotalMilliseconds > 9000 && sceneStatus == SceneStatus.Raining)
                 {
                     this.Dispatcher.Invoke((Action)delegate()
                     {
@@ -178,24 +176,6 @@ namespace Microsoft.Samples.Kinect.DepthBasics
                     sceneStatus = SceneStatus.Still;
 
                     break;
-                }
-                else if (d.TotalMilliseconds > 6000 && sceneStatus == SceneStatus.Raining)
-                {
-                    this.Dispatcher.Invoke((Action)delegate()
-                    {
-                        this.animation.endRain(this.GUI);
-                    });
-                    sceneStatus = SceneStatus.RainEnd;
-
-                }
-                else if (d.TotalMilliseconds > 3000 && sceneStatus == SceneStatus.RainStart)
-                {
-                    this.Dispatcher.Invoke((Action)delegate()
-                    {
-                        this.animation.Raining(this.GUI);
-                    });
-                    sceneStatus = SceneStatus.Raining;
-
                 }
             }
         }

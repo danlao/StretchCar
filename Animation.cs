@@ -75,19 +75,9 @@ namespace Microsoft.Samples.Kinect.DepthBasics
             webBrowser.Source = new Uri(this.animalLeavingScenePath);
         }
 
-        public void startRain(System.Windows.Controls.WebBrowser webBrowser)
-        {
-            webBrowser.Source = new Uri(this.rainStartScenePath);
-        }
-
         public void Raining(System.Windows.Controls.WebBrowser webBrowser)
         {
             webBrowser.Source = new Uri(this.rainingScenePath);
-        }
-
-        public void endRain(System.Windows.Controls.WebBrowser webBrowser)
-        {
-            webBrowser.Source = new Uri(this.rainEndScenePath);
         }
 
         public void rollAnimal()
