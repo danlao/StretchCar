@@ -7,19 +7,18 @@ using System.Text;
 namespace Microsoft.Samples.Kinect.DepthBasics
 {
     abstract class Animation
-    {
+	{
         protected String rootPath;
         protected String movingScenePath;
         protected String stillScenePath;
-        protected String animalShowingScenePath;
-        protected String animalStillScenePath;
-        protected String animalLeavingScenePath;
-        protected String rainStartScenePath;
-        protected String rainingScenePath;
-        protected String rainEndScenePath;
-        protected String audioPath;
+		protected String audioPath;
+		protected String animalStillScenePath;
+		protected Tuple<String, double> animalShowingScenePath;
+		protected Tuple<String, double> animalLeavingScenePath;
+		protected Tuple<String, double> rainingScenePath;
 
         protected ArrayList animalScenePathTuples;
+		protected ArrayList animalSceneDuration;
 
         protected int numAnimal;
 
@@ -28,6 +27,8 @@ namespace Microsoft.Samples.Kinect.DepthBasics
         public Animation()
         {
             this.animalScenePathTuples = new ArrayList();
+			this.animalSceneDuration = new ArrayList();
+
             this.rand = new Random();
         }
 
@@ -60,9 +61,10 @@ namespace Microsoft.Samples.Kinect.DepthBasics
             webBrowser.Source = new Uri(this.stillScenePath);
         }
 
-        public void animalAppears(System.Windows.Controls.WebBrowser webBrowser)
+        public double animalAppears(System.Windows.Controls.WebBrowser webBrowser)
         {
-            webBrowser.Source = new Uri(this.animalShowingScenePath);
+            webBrowser.Source = new Uri(this.animalShowingScenePath.Item1);
+			return this.animalShowingScenePath.Item2;
         }
 
         public void animalStill(System.Windows.Controls.WebBrowser webBrowser)
@@ -70,22 +72,26 @@ namespace Microsoft.Samples.Kinect.DepthBasics
             webBrowser.Source = new Uri(this.animalStillScenePath);
         }
 
-        public void animalLeaves(System.Windows.Controls.WebBrowser webBrowser)
+        public double animalLeaves(System.Windows.Controls.WebBrowser webBrowser)
         {
-            webBrowser.Source = new Uri(this.animalLeavingScenePath);
+            webBrowser.Source = new Uri(this.animalLeavingScenePath.Item1);
+			return this.animalLeavingScenePath.Item2;
         }
 
-        public void Raining(System.Windows.Controls.WebBrowser webBrowser)
+        public double Raining(System.Windows.Controls.WebBrowser webBrowser)
         {
-            webBrowser.Source = new Uri(this.rainingScenePath);
+            webBrowser.Source = new Uri(this.rainingScenePath.Item1);
+			return this.rainingScenePath.Item2;
         }
 
         public void rollAnimal()
         {
             int randInt = this.rand.Next(0, this.numAnimal);
-            this.animalShowingScenePath = ((Tuple<String, String, String>)this.animalScenePathTuples[randInt]).Item1;
+            this.animalShowingScenePath = new Tuple<string,double>(((Tuple<String, String, String>)this.animalScenePathTuples[randInt]).Item1, 
+					((Tuple<double, double>)this.animalSceneDuration[randInt]).Item1);
             this.animalStillScenePath = ((Tuple<String, String, String>)this.animalScenePathTuples[randInt]).Item2;
-            this.animalLeavingScenePath = ((Tuple<String, String, String>)this.animalScenePathTuples[randInt]).Item3;
+			this.animalLeavingScenePath = new Tuple<string, double>(((Tuple<String, String, String>)this.animalScenePathTuples[randInt]).Item3, 
+					((Tuple<double, double>)this.animalSceneDuration[randInt]).Item1);
         }
     }
 }

@@ -12,6 +12,25 @@ namespace Microsoft.Samples.Kinect.DepthBasics
             : base()
         {
             this.generatePath();
+
+			String[] lines = System.IO.File.ReadAllLines(rootPath + "\\time_properties.txt");
+			foreach (string line in lines)
+			{
+				String[] values = line.Split(' ');
+
+				if (values[0] == "driving")
+				{
+					continue;
+				}
+
+				if (values[0] == "raining")
+				{
+					this.rainingScenePath = new Tuple<string, double>(rootPath + "\\raining.html", Convert.ToDouble(values[1]));
+				}
+
+				// Tuple(start duration, end duration)
+				this.animalSceneDuration.Add(new Tuple<double, double>(Convert.ToDouble(values[1]), Convert.ToDouble(values[2])));
+			}
         }
 
         private void generatePath()
@@ -29,10 +48,6 @@ namespace Microsoft.Samples.Kinect.DepthBasics
 
             this.numAnimal = 4;
             this.rollAnimal();
-
-            this.rainStartScenePath = rootPath + "\\rain_start.html";
-            this.rainingScenePath = rootPath + "\\raining.html";
-            this.rainEndScenePath = rootPath + "\\rain_end.html";
         }
 
     }

@@ -69,7 +69,7 @@ namespace Microsoft.Samples.Kinect.DepthBasics
             // TODO play honk sound
             if (sceneStatus == SceneStatus.AnimalStill)
             {
-                this.animation.animalLeaves(this.GUI);
+				double duration = this.animation.animalLeaves(this.GUI);
                 sceneStatus = SceneStatus.AnimalLeaving;
                 Thread thread = new Thread(handleAnimalLeavingTransition);
                 thread.Start();
@@ -92,7 +92,7 @@ namespace Microsoft.Samples.Kinect.DepthBasics
             if (sceneStatus == SceneStatus.Still)
             {
                 this.animation.rollAnimal();
-                this.animation.animalAppears(this.GUI);
+                double duration = this.animation.animalAppears(this.GUI);
                 sceneStatus = SceneStatus.AnimalShowing;
                 Thread thread = new Thread(handleAnimalShowingTransition);
                 thread.Start();
@@ -118,7 +118,7 @@ namespace Microsoft.Samples.Kinect.DepthBasics
             //soundMediaElement.Play();
         }
 
-        public void handleAnimalShowingTransition()
+        public void handleAnimalShowingTransition(double duration)
         {
             DateTime startTime = DateTime.Now;
             while (true)
