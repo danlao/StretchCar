@@ -242,6 +242,8 @@ namespace Microsoft.Samples.Kinect.DepthBasics
                         gameWindow.noPress();
                     }
 
+                    gameWindow.setAudio();
+
                     // check windshield timer, then switch scene/animation
 
 					if (gameWindow.getSteerTime().TotalSeconds > 10)

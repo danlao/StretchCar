@@ -51,7 +51,7 @@ namespace Microsoft.Samples.Kinect.DepthBasics
             this.animation = this.animations[0] as Animation;
             this.sceneStatus = SceneStatus.Still;
             this.animation.carStops(this.GUI);
-            //soundMediaElement.Source = new Uri(this.animation.getAudioPath());
+            soundMediaElement.Source = new Uri(this.animation.getDrivingAudioPath());
             //soundMediaElement.Play();
         }
 
@@ -61,6 +61,8 @@ namespace Microsoft.Samples.Kinect.DepthBasics
             {
                 this.animation.carMoves(this.GUI);
                 sceneStatus = SceneStatus.Moving;
+                this.soundMediaElement.Source = new Uri(this.animation.getDrivingAudioPath());
+                this.soundMediaElement.Play();
             }
         }
 
@@ -71,7 +73,9 @@ namespace Microsoft.Samples.Kinect.DepthBasics
             {
 				double duration = this.animation.animalLeaves(this.GUI);
                 sceneStatus = SceneStatus.AnimalLeaving;
-                Thread thread = new Thread(handleAnimalLeavingTransition);
+                this.soundMediaElement.Source = new Uri(this.animation.getHonkAudioPath());
+                this.soundMediaElement.Play();
+                Thread thread = new Thread(() => handleAnimalLeavingTransition(duration));
                 thread.Start();
             }
         }
@@ -80,9 +84,9 @@ namespace Microsoft.Samples.Kinect.DepthBasics
         {
             if (sceneStatus == SceneStatus.Still)
             {
-                this.animation.Raining(this.GUI);
+                double duration = this.animation.Raining(this.GUI);
                 sceneStatus = SceneStatus.Raining;
-                Thread thread = new Thread(handleRainingTransition);
+                Thread thread = new Thread(() => handleRainingTransition(duration));
                 thread.Start();
             }
         }
@@ -94,7 +98,7 @@ namespace Microsoft.Samples.Kinect.DepthBasics
                 this.animation.rollAnimal();
                 double duration = this.animation.animalAppears(this.GUI);
                 sceneStatus = SceneStatus.AnimalShowing;
-                Thread thread = new Thread(handleAnimalShowingTransition);
+                Thread thread = new Thread(() => handleAnimalShowingTransition(duration));
                 thread.Start();
             }
         }
@@ -108,14 +112,27 @@ namespace Microsoft.Samples.Kinect.DepthBasics
             }
         }
 
+        public void setAudio()
+        {
+            switch (sceneStatus)
+            {
+                case SceneStatus.Moving:
+                case SceneStatus.AnimalLeaving:
+                    break;
+                default:
+                    if (this.soundMediaElement.CanPause)
+                    {
+                        this.soundMediaElement.Pause();
+                    }
+                    break;
+            }
+        }
+
         public void switchEnvironment()
         {
             this.animation = (Animation)this.animations[(this.animations.IndexOf(this.animation) + 1) % this.animations.Count];
             this.animation.carStops(this.GUI);
 			this.steerTime = TimeSpan.Zero;
-            //soundMediaElement.Close();
-            //soundMediaElement.Source = new Uri(this.animation.getAudioPath());
-            //soundMediaElement.Play();
         }
 
         public void handleAnimalShowingTransition(double duration)
@@ -124,7 +141,7 @@ namespace Microsoft.Samples.Kinect.DepthBasics
             while (true)
             {
                 TimeSpan d = DateTime.Now - startTime;
-                if (d.TotalMilliseconds > 3000)
+                if (d.TotalSeconds > duration)
                 {
                     if (sceneStatus == SceneStatus.AnimalShowing)
                     {
@@ -139,19 +156,23 @@ namespace Microsoft.Samples.Kinect.DepthBasics
             }
         }
 
-        public void handleAnimalLeavingTransition()
+        public void handleAnimalLeavingTransition(double duration)
         {
             DateTime startTime = DateTime.Now;
             while (true)
             {
                 TimeSpan d = DateTime.Now - startTime;
-                if (d.TotalMilliseconds > 3000)
+                if (d.TotalSeconds > duration)
                 {
                     if (sceneStatus == SceneStatus.AnimalLeaving)
                     {
                         this.Dispatcher.Invoke((Action)delegate()
                         {
                             this.animation.carStops(this.GUI);
+                            if (this.soundMediaElement.CanPause)
+                            {
+                                this.soundMediaElement.Pause();
+                            }
                         });
                         sceneStatus = SceneStatus.Still;
                     }
@@ -161,13 +182,13 @@ namespace Microsoft.Samples.Kinect.DepthBasics
         }
 
 
-        public void handleRainingTransition()
+        public void handleRainingTransition(double duration)
         {
             DateTime startTime = DateTime.Now;
             while (true)
             {
                 TimeSpan d = DateTime.Now - startTime;
-                if (d.TotalMilliseconds > 9000 && sceneStatus == SceneStatus.Raining)
+                if (d.TotalSeconds > duration && sceneStatus == SceneStatus.Raining)
                 {
                     this.Dispatcher.Invoke((Action)delegate()
                     {

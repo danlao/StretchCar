@@ -11,7 +11,8 @@ namespace Microsoft.Samples.Kinect.DepthBasics
         protected String rootPath;
         protected String movingScenePath;
         protected String stillScenePath;
-		protected String audioPath;
+        protected String drivingAudioPath;
+        protected String honkAudioPath;
 		protected String animalStillScenePath;
 		protected Tuple<String, double> animalShowingScenePath;
 		protected Tuple<String, double> animalLeavingScenePath;
@@ -46,9 +47,14 @@ namespace Microsoft.Samples.Kinect.DepthBasics
             }
         }
 
-        public String getAudioPath()
+        public String getDrivingAudioPath()
         {
-            return this.audioPath;
+            return this.drivingAudioPath;
+        }
+
+        public String getHonkAudioPath()
+        {
+            return this.honkAudioPath;
         }
 
         public void carMoves(System.Windows.Controls.WebBrowser webBrowser)
@@ -86,6 +92,7 @@ namespace Microsoft.Samples.Kinect.DepthBasics
 
         public void rollAnimal()
         {
+            Console.WriteLine(this.animalSceneDuration.Count);
             int randInt = this.rand.Next(0, this.numAnimal);
             this.animalShowingScenePath = new Tuple<string,double>(((Tuple<String, String, String>)this.animalScenePathTuples[randInt]).Item1, 
 					((Tuple<double, double>)this.animalSceneDuration[randInt]).Item1);
