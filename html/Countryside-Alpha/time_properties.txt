@@ -1,0 +1,6 @@
+driving 18.0
+rabbit 2.0 1.6
+cow 3.3 3.0
+dog 2.9 1.5
+bird 1.1 1.0
+raining 10.0
