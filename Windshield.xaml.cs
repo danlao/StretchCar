@@ -69,15 +69,19 @@ namespace Microsoft.Samples.Kinect.DepthBasics
         public void hornPressed()
         {
             // TODO play honk sound
-            if (sceneStatus == SceneStatus.AnimalStill)
-            {
+			if (sceneStatus == SceneStatus.AnimalStill)
+			{
 				double duration = this.animation.animalLeaves(this.GUI);
-                sceneStatus = SceneStatus.AnimalLeaving;
-                this.soundMediaElement.Source = new Uri(this.animation.getHonkAudioPath());
-                this.soundMediaElement.Play();
-                Thread thread = new Thread(() => handleAnimalLeavingTransition(duration));
-                thread.Start();
-            }
+				sceneStatus = SceneStatus.AnimalLeaving;
+				this.soundMediaElement.Source = new Uri(this.animation.getHonkAudioPath());
+				this.soundMediaElement.Play();
+				Thread thread = new Thread(() => handleAnimalLeavingTransition(duration));
+				thread.Start();
+			}
+			else
+			{
+				soundMediaElement_MediaOpened(null, new RoutedEventArgs());
+			}
         }
 
         public void windshieldWiperPressed()
@@ -209,6 +213,12 @@ namespace Microsoft.Samples.Kinect.DepthBasics
 		public TimeSpan getSteerTime()
 		{
 			return steerTime;
+		}
+
+		private void soundMediaElement_MediaOpened(object sender, RoutedEventArgs e)
+		{
+			this.soundMediaElement.Source = new Uri(this.animation.getHonkAudioPath());
+			this.soundMediaElement.Play();
 		}
     }
 }
