@@ -12,6 +12,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Threading;
 using System.Collections;
+using System.Windows.Threading;
 
 namespace Microsoft.Samples.Kinect.DepthBasics
 {
@@ -40,6 +41,8 @@ namespace Microsoft.Samples.Kinect.DepthBasics
 
         private string rootpath = System.AppDomain.CurrentDomain.BaseDirectory;
 
+		private MediaPlayer honkAudio;
+
         public Windshield()
         {
 			InitializeComponent();
@@ -53,6 +56,9 @@ namespace Microsoft.Samples.Kinect.DepthBasics
             this.animation.carStops(this.GUI);
             soundMediaElement.Source = new Uri(this.animation.getDrivingAudioPath());
             //soundMediaElement.Play();
+
+			honkAudio = new MediaPlayer();
+			honkAudio.Open(new Uri(this.animation.getHonkAudioPath()));
         }
 
         public void steerPressed()
@@ -80,7 +86,14 @@ namespace Microsoft.Samples.Kinect.DepthBasics
 			}
 			else
 			{
-				soundMediaElement_MediaOpened(null, new RoutedEventArgs());
+				// check if honk_playing
+				//		set up new timer for duration of the audio
+				//		set honk_playing to true
+				//		continue to do nothing until duration of audio is over
+				//		when duration is over, reset honk_playing value to false
+				Thread thread = new Thread(playSound_Tick);
+				thread.Start();
+				
 			}
         }
 
@@ -219,6 +232,14 @@ namespace Microsoft.Samples.Kinect.DepthBasics
 		{
 			this.soundMediaElement.Source = new Uri(this.animation.getHonkAudioPath());
 			this.soundMediaElement.Play();
+		}
+
+		private void playSound_Tick()
+		{
+			this.Dispatcher.Invoke((Action)delegate()
+			{
+				this.honkAudio.Play();
+			});
 		}
     }
 }
