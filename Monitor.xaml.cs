@@ -1,9 +1,4 @@
-﻿//------------------------------------------------------------------------------
-// <copyright file="MainWindow.xaml.cs" company="Microsoft">
-//     Copyright (c) Microsoft Corporation.  All rights reserved.
-// </copyright>
-//------------------------------------------------------------------------------
-
+﻿
 namespace Microsoft.Samples.Kinect.DepthBasics
 {
     using System;
@@ -59,7 +54,6 @@ namespace Microsoft.Samples.Kinect.DepthBasics
 
             if (null == this.sensor)
             {
-                this.statusBarText.Text = Properties.Resources.NoKinectReady;
             }
         }
 
@@ -109,7 +103,6 @@ namespace Microsoft.Samples.Kinect.DepthBasics
         {
             if (null == this.sensor)
             {
-                this.statusBarText.Text = Properties.Resources.ConnectDeviceFirst;
                 return;
             }
 
@@ -133,11 +126,9 @@ namespace Microsoft.Samples.Kinect.DepthBasics
                     encoder.Save(fs);
                 }
 
-                this.statusBarText.Text = string.Format(CultureInfo.InvariantCulture, "{0} {1}", Properties.Resources.ScreenshotWriteSuccess, path);
             }
             catch (IOException)
             {
-                this.statusBarText.Text = string.Format(CultureInfo.InvariantCulture, "{0} {1}", Properties.Resources.ScreenshotWriteFailed, path);
             }
         }
 
@@ -150,21 +141,7 @@ namespace Microsoft.Samples.Kinect.DepthBasics
         {
             if (this.sensor != null)
             {
-                // will not function on non-Kinect for Windows devices
-                try
-                {
-                    if (this.checkBoxNearMode.IsChecked.GetValueOrDefault())
-                    {
-                        this.sensor.DepthStream.Range = DepthRange.Near;
-                    }
-                    else
-                    {
-                        this.sensor.DepthStream.Range = DepthRange.Default;
-                    }
-                }
-                catch (InvalidOperationException)
-                {
-                }
+                this.sensor.DepthStream.Range = DepthRange.Default;
             }
         }
 

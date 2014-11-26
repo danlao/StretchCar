@@ -1,19 +1,9 @@
-﻿//------------------------------------------------------------------------------
-// <copyright file="MainWindow.xaml.cs" company="Microsoft">
-//     Copyright (c) Microsoft Corporation.  All rights reserved.
-// </copyright>
-//------------------------------------------------------------------------------
-
+﻿
 namespace Microsoft.Samples.Kinect.DepthBasics
 {
     using System;
-    using System.Globalization;
     using System.IO;
-    using System.Windows;
-    using System.Windows.Media;
-    using System.Windows.Media.Imaging;
     using Microsoft.Kinect;
-    using System.Collections;
 
     public class StretchCar
     {
@@ -40,34 +30,37 @@ namespace Microsoft.Samples.Kinect.DepthBasics
 
         private Dashboard dashboard;
 
+        private static int SCENE_DURATION = 5;
+
         private static int SCREEN_WIDTH = 640;
         private static int SCREEN_HEIGHT = 480;
 
-        private static int STEER_X = 120;
-        private static int STEER_Y = 240;
-        private static int STEER_RADIUS = 120;
+        private static int STEER_X = 80;
+        private static int STEER_Y = 80;
+        private static int STEER_RADIUS = 78;
 
-        private static int HORN_X1 = 240;
-        private static int HORN_Y1 = 60;
-        private static int HORN_X2 = 420;
-        private static int HORN_Y2 = 60;
-        private static int HORN_X3 = 330;
-        private static int HORN_Y3 = 440;
+        private static int HORN_X1 = 162;
+        private static int HORN_Y1 = 0;
+        private static int HORN_X2 = 318;
+        private static int HORN_Y2 = 0;
+        private static int HORN_X3 = 240;
+        private static int HORN_Y3 = 160;
 
-        private static int ANIMAL_BUTTON_X = 520;
-        private static int ANIMAL_BUTTON_Y = 200;
-        private static int ANIMAL_BUTTON_RADIUS = 100;
+        private static int WINDSHIELD_WIPER_X1 = 322;
+        private static int WINDSHIELD_WIPER_Y1 = 0;
+        private static int WINDSHIELD_WIPER_X2 = 478;
+        private static int WINDSHIELD_WIPER_Y2 = 160;
 
-        private static int WINDSHIELD_WIPER_X1 = 420;
-        private static int WINDSHIELD_WIPER_Y1 = 320;
-        private static int WINDSHIELD_WIPER_X2 = 620;
-        private static int WINDSHIELD_WIPER_Y2 = 440;
-
+        private static int ANIMAL_BUTTON_X = 560;
+        private static int ANIMAL_BUTTON_Y = 80;
+        private static int ANIMAL_BUTTON_RADIUS = 78;
+        
 		private DateTime steerStartTime;
 		private bool steerDown = false;
 
         public StretchCar()
         {
+            // reverseItems();
             gameWindow = new Windshield();
             dashboard = new Dashboard();
             dashboard.addItem(new SteeringWheel(STEER_X, STEER_Y, STEER_RADIUS));
@@ -80,6 +73,22 @@ namespace Microsoft.Samples.Kinect.DepthBasics
             monitor = new Monitor(this.sensor);
             monitor.Show();
             gameWindow.Show();
+        }
+
+        private void reverseItems()
+        {
+            reverse(ref STEER_X);
+            reverse(ref HORN_X1);
+            reverse(ref HORN_X2);
+            reverse(ref HORN_X3);
+            reverse(ref WINDSHIELD_WIPER_X1);
+            reverse(ref WINDSHIELD_WIPER_X2);
+            reverse(ref ANIMAL_BUTTON_X);
+        }
+
+        private void reverse(ref int x)
+        {
+            x = SCREEN_WIDTH - x;
         }
 
         private void setup()
@@ -246,7 +255,7 @@ namespace Microsoft.Samples.Kinect.DepthBasics
 
                     // check windshield timer, then switch scene/animation
 
-					if (gameWindow.getSteerTime().TotalSeconds > 10)
+					if (gameWindow.getSteerTime().TotalSeconds > SCENE_DURATION)
 					{
 						gameWindow.switchEnvironment();
 					}

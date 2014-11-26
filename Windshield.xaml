@@ -5,7 +5,9 @@
     
     <Grid>
         <WebBrowser Name="GUI"></WebBrowser>
-        <MediaElement Height="120" LoadedBehavior="Manual" Name="soundMediaElement">
+        <MediaElement LoadedBehavior="Manual" UnloadedBehavior="Manual" Name="soundMediaElement">
+        </MediaElement>
+        <MediaElement LoadedBehavior="Manual" UnloadedBehavior="Manual" Name="honkAudio">
         </MediaElement>
     </Grid>
 </Window>

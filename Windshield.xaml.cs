@@ -1,18 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using System.Threading;
 using System.Collections;
-using System.Windows.Threading;
 
 namespace Microsoft.Samples.Kinect.DepthBasics
 {
@@ -41,7 +30,7 @@ namespace Microsoft.Samples.Kinect.DepthBasics
 
         private string rootpath = System.AppDomain.CurrentDomain.BaseDirectory;
 
-		private MediaPlayer honkAudio;
+		//private MediaPlayer honkAudio;
 
         public Windshield()
         {
@@ -55,10 +44,10 @@ namespace Microsoft.Samples.Kinect.DepthBasics
             this.sceneStatus = SceneStatus.Still;
             this.animation.carStops(this.GUI);
             soundMediaElement.Source = new Uri(this.animation.getDrivingAudioPath());
-            //soundMediaElement.Play();
 
-			honkAudio = new MediaPlayer();
-			honkAudio.Open(new Uri(this.animation.getHonkAudioPath()));
+			//honkAudio = new MediaPlayer();
+			//honkAudio.Open(new Uri(this.animation.getHonkAudioPath()));
+            honkAudio.Source = new Uri(this.animation.getHonkAudioPath());
         }
 
         public void steerPressed()
@@ -77,7 +66,7 @@ namespace Microsoft.Samples.Kinect.DepthBasics
             // TODO play honk sound
 			if (sceneStatus == SceneStatus.AnimalStill)
 			{
-				double duration = this.animation.animalLeaves(this.GUI);
+                double duration = this.animation.animalLeaves(this.GUI);
 				sceneStatus = SceneStatus.AnimalLeaving;
 				this.soundMediaElement.Source = new Uri(this.animation.getHonkAudioPath());
 				this.soundMediaElement.Play();
@@ -149,6 +138,7 @@ namespace Microsoft.Samples.Kinect.DepthBasics
         {
             this.animation = (Animation)this.animations[(this.animations.IndexOf(this.animation) + 1) % this.animations.Count];
             this.animation.carStops(this.GUI);
+            this.honkAudio.Source = new Uri(this.animation.getHonkAudioPath());
 			this.steerTime = TimeSpan.Zero;
         }
 
@@ -236,10 +226,18 @@ namespace Microsoft.Samples.Kinect.DepthBasics
 
 		private void playSound_Tick()
 		{
+            int audioDuration = 1200;
 			this.Dispatcher.Invoke((Action)delegate()
 			{
-				this.honkAudio.Play();
-			});
+                this.honkAudio.Play();
+                // audioDuration =(int)this.honkAudio.NaturalDuration.TimeSpan.TotalMilliseconds;
+            });
+            System.Threading.Thread.Sleep(audioDuration);
+            this.Dispatcher.Invoke((Action)delegate()
+            {
+                this.honkAudio.Pause();
+                this.honkAudio.Position = TimeSpan.Zero;
+            });
 		}
     }
 }

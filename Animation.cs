@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Microsoft.Samples.Kinect.DepthBasics
 {
@@ -92,13 +89,12 @@ namespace Microsoft.Samples.Kinect.DepthBasics
 
         public void rollAnimal()
         {
-            Console.WriteLine(this.animalSceneDuration.Count);
             int randInt = this.rand.Next(0, this.numAnimal);
             this.animalShowingScenePath = new Tuple<string,double>(((Tuple<String, String, String>)this.animalScenePathTuples[randInt]).Item1, 
 					((Tuple<double, double>)this.animalSceneDuration[randInt]).Item1);
             this.animalStillScenePath = ((Tuple<String, String, String>)this.animalScenePathTuples[randInt]).Item2;
 			this.animalLeavingScenePath = new Tuple<string, double>(((Tuple<String, String, String>)this.animalScenePathTuples[randInt]).Item3, 
-					((Tuple<double, double>)this.animalSceneDuration[randInt]).Item1);
+					((Tuple<double, double>)this.animalSceneDuration[randInt]).Item2);
         }
     }
 }
