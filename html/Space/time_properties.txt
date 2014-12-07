@@ -1,0 +1,5 @@
+driving 3.0
+alien 5.6 5.6
+planets 5.6 5.6
+meteor 5.6 1.7
+raining 8.7
