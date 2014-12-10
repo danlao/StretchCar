@@ -56,6 +56,7 @@ namespace Microsoft.Samples.Kinect.DepthBasics
         public StretchCar()
         {
             // reverseItems();
+            zoomItems(0.7);
             gameWindow = new Windshield();
             dashboard = new Dashboard();
             dashboard.addItem(new SteeringWheel(STEER_X, STEER_Y, STEER_RADIUS));
@@ -68,6 +69,34 @@ namespace Microsoft.Samples.Kinect.DepthBasics
             monitor = new Monitor(this.sensor);
             monitor.Show();
             gameWindow.Show();
+        }
+
+        private void zoomItems(double rate)
+        {
+            if (rate >= 1 || rate <= 0)
+            {
+                return;
+            }
+            zoom(ref STEER_X, ref STEER_Y, rate);
+            zoom(ref STEER_RADIUS, rate);
+            zoom(ref HORN_X1, ref HORN_Y1, rate);
+            zoom(ref HORN_X2, ref HORN_Y2, rate);
+            zoom(ref HORN_X3, ref HORN_Y3, rate);
+            zoom(ref WINDSHIELD_WIPER_X1, ref WINDSHIELD_WIPER_Y1, rate);
+            zoom(ref WINDSHIELD_WIPER_X2, ref WINDSHIELD_WIPER_Y2, rate);
+            zoom(ref ANIMAL_BUTTON_X, ref ANIMAL_BUTTON_Y, rate);
+            zoom(ref ANIMAL_BUTTON_RADIUS, rate);
+        }
+
+        private void zoom(ref int x, ref int y, double rate)
+        {
+            x = (int) ((SCREEN_WIDTH / 2) * (1 - rate) + x * rate);
+            y = (int) (y * rate);
+        }
+
+        private void zoom(ref int radius, double rate)
+        {
+            radius = (int) (radius * rate);
         }
 
         private void reverseItems()
