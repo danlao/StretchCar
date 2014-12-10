@@ -56,7 +56,7 @@ namespace Microsoft.Samples.Kinect.DepthBasics
         public StretchCar()
         {
             // reverseItems();
-            zoomItems(0.7);
+            // zoomItems(0.7);
             gameWindow = new Windshield();
             dashboard = new Dashboard();
             dashboard.addItem(new SteeringWheel(STEER_X, STEER_Y, STEER_RADIUS));
