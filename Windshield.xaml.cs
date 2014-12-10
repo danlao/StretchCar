@@ -39,6 +39,8 @@ namespace Microsoft.Samples.Kinect.DepthBasics
 			this.animations = new ArrayList();
 			this.animations.Add(new JungleAnimation());
 			this.animations.Add(new CountrysideAnimation());
+            this.animations.Add(new SpaceAnimation());
+            this.animations.Add(new UnderwaterAnimation());
 
             this.animation = this.animations[0] as Animation;
             this.sceneStatus = SceneStatus.Still;

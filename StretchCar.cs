@@ -249,16 +249,16 @@ namespace Microsoft.Samples.Kinect.DepthBasics
                     else
                     {
                         gameWindow.noPress();
+
+                        // check windshield timer, then switch scene/animation
+                        if (gameWindow.getSteerTime().TotalSeconds > SCENE_DURATION)
+                        {
+                            gameWindow.switchEnvironment();
+                        }
                     }
 
                     gameWindow.setAudio();
 
-                    // check windshield timer, then switch scene/animation
-
-					if (gameWindow.getSteerTime().TotalSeconds > SCENE_DURATION)
-					{
-						gameWindow.switchEnvironment();
-					}
 
                     this.drawCircle(STEER_X, STEER_Y, STEER_RADIUS);
                     this.drawRectangle(WINDSHIELD_WIPER_X1, WINDSHIELD_WIPER_Y1, WINDSHIELD_WIPER_X2, WINDSHIELD_WIPER_Y2);

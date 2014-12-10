@@ -6,9 +6,9 @@ using System.Text;
 
 namespace Microsoft.Samples.Kinect.DepthBasics
 {
-    class UnderwaterAnimation : Animation
+    class SpaceAnimation : Animation
     {
-        public UnderwaterAnimation()
+        public SpaceAnimation()
             : base()
         {
             this.generatePath();
@@ -25,7 +25,7 @@ namespace Microsoft.Samples.Kinect.DepthBasics
 
                 if (values[0] == "raining")
                 {
-                    this.rainingScenePath = new Tuple<string, double>(rootPath + "\\raining.html", Convert.ToDouble(values[1])); //there isn't a raining scene'
+                    this.rainingScenePath = new Tuple<string, double>(rootPath + "\\raining.html", Convert.ToDouble(values[1]));
                     continue;
                 }
 
@@ -38,18 +38,17 @@ namespace Microsoft.Samples.Kinect.DepthBasics
         private void generatePath()
         {
             base.generateRootPath();
-            rootPath += "\\html\\Underwater";
+            rootPath += "\\html\\Space";
             this.stillScenePath = rootPath + "\\still.html";
             this.movingScenePath = rootPath + "\\driving.html";
-            this.drivingAudioPath = rootPath + "\\Underwater_Song.mp3";
+            this.drivingAudioPath = rootPath + "\\Space_Song.mp3";
             this.honkAudioPath = rootPath + "\\Horn.mp3";
 
-            this.animalScenePathTuples.Add(new Tuple<String, String, String>(rootPath + "\\crab_enter.html", rootPath + "\\crab_still.html", rootPath + "\\crab_leave.html"));
-            this.animalScenePathTuples.Add(new Tuple<String, String, String>(rootPath + "\\dolphin_enter.html", rootPath + "\\dolphin_still.html", rootPath + "\\dolphin_leave.html"));
-            this.animalScenePathTuples.Add(new Tuple<String, String, String>(rootPath + "\\fish_enter.html", rootPath + "\\fish_still.html", rootPath + "\\fish_leave.html"));
-            this.animalScenePathTuples.Add(new Tuple<String, String, String>(rootPath + "\\whale_enter.html", rootPath + "\\whale_still.html", rootPath + "\\whale_leave.html"));
+            this.animalScenePathTuples.Add(new Tuple<String, String, String>(rootPath + "\\alien_enter.html", rootPath + "\\alien_still.html", rootPath + "\\alien_leave.html"));
+            this.animalScenePathTuples.Add(new Tuple<String, String, String>(rootPath + "\\meteor_enter.html", rootPath + "\\meteor_still.html", rootPath + "\\meteor_leave.html"));
+            this.animalScenePathTuples.Add(new Tuple<String, String, String>(rootPath + "\\planets_enter.html", rootPath + "\\planets_still.html", rootPath + "\\planets_leave.html"));
 
-            this.numAnimal = 4;
+            this.numAnimal = 3;
         }
 
     }

@@ -66,8 +66,10 @@
     <Compile Include="CountrysideAnimation.cs" />
     <Compile Include="Horn.cs" />
     <Compile Include="JungleAnimation.cs" />
+    <Compile Include="SpaceAnimation.cs" />
     <Compile Include="SteeringWheel.cs" />
     <Compile Include="StretchCar.cs" />
+    <Compile Include="UnderwaterAnimation.cs" />
     <Compile Include="WindshieldWiper.cs" />
     <Page Include="Windshield.xaml">
       <Generator>MSBuild:Compile</Generator>
