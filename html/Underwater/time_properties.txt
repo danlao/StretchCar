@@ -1,6 +1,6 @@
 driving 4.1
-fish 2.0 4.2
-whale 2.0 2.1
-dolphin 4.1 4.2
 crab 4.2 4.1
+dolphin 4.2 4.0
+fish 2.1 4.2
+whale 2.1 2.1
 raining 10.0

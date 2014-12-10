@@ -30,8 +30,6 @@ namespace Microsoft.Samples.Kinect.DepthBasics
 
         private Dashboard dashboard;
 
-        private static int SCENE_DURATION = 5;
-
         private static int SCREEN_WIDTH = 640;
         private static int SCREEN_HEIGHT = 480;
 
@@ -54,9 +52,6 @@ namespace Microsoft.Samples.Kinect.DepthBasics
         private static int ANIMAL_BUTTON_X = 560;
         private static int ANIMAL_BUTTON_Y = 80;
         private static int ANIMAL_BUTTON_RADIUS = 78;
-        
-		private DateTime steerStartTime;
-		private bool steerDown = false;
 
         public StretchCar()
         {
@@ -214,13 +209,6 @@ namespace Microsoft.Samples.Kinect.DepthBasics
                         if (item is SteeringWheel)
                         {
                             gameWindow.steerPressed();
-
-							// handle total steering wheel pressed duration
-							if (!steerDown)
-							{
-								steerStartTime = DateTime.Now;
-								steerDown = true;
-							}
                         }
                         else if (item is Horn)
                         {
@@ -238,23 +226,10 @@ namespace Microsoft.Samples.Kinect.DepthBasics
                         {
                             gameWindow.noPress();
                         }
-
-						// handle total steering wheel pressed duration
-						if (!(item is SteeringWheel) && steerDown)
-						{
-							gameWindow.updateSteerTime(DateTime.Now - steerStartTime);
-							steerDown = false;
-						}
                     }
                     else
                     {
                         gameWindow.noPress();
-
-                        // check windshield timer, then switch scene/animation
-                        if (gameWindow.getSteerTime().TotalSeconds > SCENE_DURATION)
-                        {
-                            gameWindow.switchEnvironment();
-                        }
                     }
 
                     gameWindow.setAudio();
